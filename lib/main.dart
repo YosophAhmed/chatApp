@@ -2,8 +2,14 @@ import 'package:chat/pages/login_page.dart';
 import 'package:chat/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const ChatApp());
 }
 
@@ -21,8 +27,8 @@ class ChatApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: LoginPage.id,
         routes: {
-          LoginPage.id: (context) => const LoginPage(),
-          RegisterPage.id : (context) => const RegisterPage(),
+          LoginPage.id: (context) => LoginPage(),
+          RegisterPage.id : (context) => RegisterPage(),
         },
       );
     });

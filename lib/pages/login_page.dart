@@ -19,18 +19,8 @@ class LoginPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 2.w),
         child: ListView(
           children: [
-            SizedBox(
-              height: 5.h,
-            ),
-            CircleAvatar(
-              radius: 115.sp,
-              backgroundColor: primaryColor4,
-              child: CircleAvatar(
-                radius: 110.sp,
-                backgroundImage:
-                    const AssetImage('assets/images/Chat App.png'),
-              ),
-            ),
+            SizedBox(height: 1.h,),
+            Image.asset('assets/images/Chat App.png'),
             SizedBox(
               height: 1.h,
             ),
@@ -44,20 +34,29 @@ class LoginPage extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const CustomTextField(
+            CustomTextField(
               hintText: 'Enter your email',
+              onChanged: (data) {
+
+              },
             ),
             SizedBox(
               height: 2.h,
             ),
-            const CustomTextField(
+            CustomTextField(
               hintText: 'Enter your password',
+              onChanged: (data) {
+
+              },
             ),
             SizedBox(
               height: 2.h,
             ),
-            const CustomButton(
+            CustomButton(
               label: 'LOGIN',
+              onTap: () {
+
+              },
             ),
             SizedBox(
               height: 4.h,

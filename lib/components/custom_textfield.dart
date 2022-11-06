@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
 
   final String? hintText;
+  final Function(String)? onChanged;
 
-  const CustomTextField({Key? key, this.hintText}) : super(key: key);
+  const CustomTextField({Key? key, this.hintText, required this.onChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class CustomTextField extends StatelessWidget {
         ),
         hintText: hintText,
       ),
+      onChanged: onChanged,
     );
   }
 }

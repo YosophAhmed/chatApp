@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,7 +10,8 @@ class RegisterPage extends StatelessWidget {
 
   static const String id = 'RegisterPage';
 
-  const RegisterPage({Key? key}) : super(key: key);
+   String? email;
+   String? password;
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +21,8 @@ class RegisterPage extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 2.w),
         child: ListView(
           children: [
-            SizedBox(height: 5.h,),
-            CircleAvatar(
-              radius: 115.sp,
-              backgroundColor: primaryColor4,
-              child: CircleAvatar(
-                radius: 110.sp,
-                backgroundImage: const AssetImage('assets/images/Chat App.png'),
-              ),
-            ),
+            SizedBox(height: 1.h,),
+            Image.asset('assets/images/Chat App.png'),
             SizedBox(height: 1.h,),
             Text(
               'Register now',
@@ -39,16 +34,29 @@ class RegisterPage extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const CustomTextField(
+            CustomTextField(
               hintText: 'Enter valid email',
+              onChanged: (data){
+                email = data;
+              },
             ),
             SizedBox(height: 2.h,),
-            const CustomTextField(
+            CustomTextField(
               hintText: 'Enter strong password',
+              onChanged: (data) {
+                password = data;
+              },
             ),
             SizedBox(height: 2.h,),
-            const CustomButton(
+            CustomButton(
               label: 'REGISTER',
+              onTap: () async {
+                var auth = FirebaseAuth.instance;
+                UserCredential user = await auth.createUserWithEmailAndPassword(
+                    email: email!,
+                    password: password!,
+                );
+              },
             ),
             SizedBox(
               height: 4.h,
