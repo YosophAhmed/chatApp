@@ -1,12 +1,13 @@
 import 'package:chat/components/custom_button.dart';
+import 'package:chat/components/custom_text.dart';
 import 'package:chat/components/custom_textfield.dart';
 import 'package:chat/constants/colors.dart';
 import 'package:chat/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import '../components/logo.dart';
 
 class LoginPage extends StatelessWidget {
-
   static const String id = 'LoginPage';
 
   const LoginPage({Key? key}) : super(key: key);
@@ -14,26 +15,13 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF0FF43),
+      backgroundColor: primaryColor1,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 2.w),
+        padding: EdgeInsets.symmetric(horizontal: 3.w),
         child: ListView(
           children: [
-            SizedBox(height: 1.h,),
-            Image.asset('assets/images/Chat App.png'),
-            SizedBox(
-              height: 1.h,
-            ),
-            Text(
-              'Login now',
-              style: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.bold,
-                color: primaryColor4,
-                fontFamily: 'Pacifico',
-              ),
-              textAlign: TextAlign.center,
-            ),
+            const Logo(),
+            const CustomText(text: 'Login now'),
             CustomTextField(
               hintText: 'Enter your email',
               onChanged: (data) {
@@ -59,7 +47,7 @@ class LoginPage extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: 4.h,
+              height: 2.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
