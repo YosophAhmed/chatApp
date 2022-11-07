@@ -39,6 +39,7 @@ dependencies:
   sizer:
   firebase_core:
   firebase_auth:
+  modal_progress_hud_nsn:
 
 dev_dependencies:
   flutter_test:

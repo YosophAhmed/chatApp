@@ -25,6 +25,9 @@ class ChatApp extends StatelessWidget {
     ) {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.cyan,
+        ),
         initialRoute: LoginPage.id,
         routes: {
           LoginPage.id: (context) => LoginPage(),

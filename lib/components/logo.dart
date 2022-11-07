@@ -6,10 +6,14 @@ class Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 50.h,
-      width: double.infinity,
-      child: Image.asset('assets/images/Chat.png'),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(22.sp),
+        image: const DecorationImage(
+          image: AssetImage('assets/images/Chat.png'),
+        ),
+      ),
     );
   }
 }
