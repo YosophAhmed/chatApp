@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
 
   final String? hintText;
-  final Function(String)? onChanged;
   final IconData? suffix;
+  final TextEditingController? controller;
+  final Function(String)? onChanged;
+  final Function(String)? onSubmitted;
   final Function()? sendMessage;
 
   const CustomTextFormField({
     Key? key,
     this.hintText,
-    required this.onChanged,
+    this.controller,
+    this.onChanged,
+    this.onSubmitted,
     this.suffix,
     this.sendMessage,
   }) : super(key: key);
@@ -19,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       validator: (data) {
           if(data!.isEmpty){
             return 'field is required!';
@@ -49,6 +54,7 @@ class CustomTextFormField extends StatelessWidget {
         ),
       ),
       onChanged: onChanged,
+      onFieldSubmitted: onSubmitted,
     );
   }
 }
