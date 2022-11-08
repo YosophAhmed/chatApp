@@ -1,10 +1,14 @@
+import 'package:chat/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../constants/colors.dart';
 
 class ChatItem extends StatelessWidget {
-  const ChatItem({Key? key}) : super(key: key);
+
+  final Message message;
+
+  const ChatItem({Key? key, required this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class ChatItem extends StatelessWidget {
           ),
         ),
         child: Text(
-          'Hello there i\'m a new user Hello there i\'m a new user Hello there i\'m a new user',
+          message.message,
           style: TextStyle(
             fontSize: 16.sp,
           ),
