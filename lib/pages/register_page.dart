@@ -1,3 +1,4 @@
+import 'package:chat/pages/chat_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -73,7 +74,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       });
                       try {
                         await register();
-                        showSnackBar(context, 'Registration succeeded');
+                        showSnackBar(context, 'Registration succeeded',);
+                        Navigator.pushReplacementNamed(context, ChatPage.id,);
                       } on FirebaseAuthException catch (error) {
                         if(error.code == 'weak-password') {
                           showSnackBar(context, 'The password provided is too weak.');

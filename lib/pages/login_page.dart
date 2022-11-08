@@ -9,6 +9,7 @@ import 'package:sizer/sizer.dart';
 import '../components/logo.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../components/snakbar.dart';
+import 'chat_page.dart';
 
 class LoginPage extends StatefulWidget {
   static const String id = 'LoginPage';
@@ -74,7 +75,8 @@ class _LoginPageState extends State<LoginPage> {
                       });
                       try {
                         await login();
-                        showSnackBar(context, 'Login succeeded');
+                        showSnackBar(context, 'Login succeeded',);
+                        Navigator.pushReplacementNamed(context, ChatPage.id,);
                       } on FirebaseAuthException catch (error) {
                         if(error.code == 'user-not-found') {
                           showSnackBar(context, 'No user found for that email.');

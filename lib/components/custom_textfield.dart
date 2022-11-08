@@ -5,8 +5,16 @@ class CustomTextFormField extends StatelessWidget {
 
   final String? hintText;
   final Function(String)? onChanged;
+  final IconData? suffix;
+  final Function()? sendMessage;
 
-  const CustomTextFormField({Key? key, this.hintText, required this.onChanged}) : super(key: key);
+  const CustomTextFormField({
+    Key? key,
+    this.hintText,
+    required this.onChanged,
+    this.suffix,
+    this.sendMessage,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +41,11 @@ class CustomTextFormField extends StatelessWidget {
           borderSide: BorderSide(
             color: primaryColor4,
           ),
+        ),
+        suffixIcon: IconButton(
+          onPressed: sendMessage,
+          icon: Icon(suffix),
+          color: primaryColor4,
         ),
       ),
       onChanged: onChanged,
