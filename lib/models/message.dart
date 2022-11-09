@@ -2,9 +2,12 @@ import 'package:chat/constants/collections.dart';
 
 class Message {
   final String message;
+  final String id;
+  Message(this.message, this.id);
 
-  Message(this.message);
-
-  factory Message.fromJson(jsonData) => Message(jsonData[kMessage]);
+  factory Message.fromJson(jsonData) => Message(
+    jsonData[kMessage],
+    jsonData[messageId],
+  );
 
 }

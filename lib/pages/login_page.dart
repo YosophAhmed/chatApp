@@ -13,7 +13,7 @@ import 'chat_page.dart';
 
 class LoginPage extends StatefulWidget {
   static const String id = 'LoginPage';
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -86,7 +86,11 @@ class _LoginPageState extends State<LoginPage> {
                       try {
                         await login();
                         showSnackBar(context, 'Login succeeded',);
-                        Navigator.pushReplacementNamed(context, ChatPage.id,);
+                        Navigator.pushReplacementNamed(
+                          context,
+                          ChatPage.id,
+                          arguments: email,
+                        );
                       } on FirebaseAuthException catch (error) {
                         if(error.code == 'user-not-found') {
                           showSnackBar(context, 'No user found for that email.');

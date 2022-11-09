@@ -16,8 +16,13 @@ class ChatPage extends StatelessWidget {
   CollectionReference messages =
       FirebaseFirestore.instance.collection(messagesCollection);
 
+  ChatPage({super.key});
+
   @override
   Widget build(BuildContext context) {
+
+    var email = ModalRoute.of(context)!.settings.arguments;
+
     return StreamBuilder<QuerySnapshot>(
       stream: messages.orderBy(kmessageTime, descending: true).snapshots(),
       builder: (context, snapshot) {
@@ -43,9 +48,13 @@ class ChatPage extends StatelessWidget {
                   child: ListView.builder(
                     reverse: true,
                     controller: scrollController,
-                    itemBuilder: (context, index) => ChatItem(
+                    itemBuilder: (context, index) {
+                      return messagesList[index].id != email ? ChatItem(
                       message: messagesList[index],
-                    ),
+                    ) : ChatItemTwo(
+                        message: messagesList[index],
+                      );
+                    },
                     itemCount: messagesList.length,
                   ),
                 ),
@@ -62,10 +71,14 @@ class ChatPage extends StatelessWidget {
                         messageSubmit = message;
                       }
                     },
+                    onChanged: (message){
+                      messageSubmit = message;
+                    },
                     suffixFunction: () {
                       messages.add({
                         kMessage: messageSubmit,
                         kmessageTime: DateTime.now(),
+                        messageId : email,
                       });
                       controller.clear();
                       scrollController.jumpTo(0);
@@ -75,7 +88,8 @@ class ChatPage extends StatelessWidget {
               ],
             ),
           );
-        } else {
+        }
+        else {
           return Scaffold(
             backgroundColor: primaryColor1,
             appBar: AppBar(
@@ -89,7 +103,7 @@ class ChatPage extends StatelessWidget {
             ),
             body: Column(
               children: [
-                Expanded(child: Text('')),
+                //Expanded(child: Text('')),
                 Padding(
                   padding: EdgeInsets.all(8.sp),
                   child: CustomTextFormField(

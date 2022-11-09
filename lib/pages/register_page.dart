@@ -12,7 +12,7 @@ import '../components/snakbar.dart';
 import '../constants/colors.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({Key? key}) : super(key: key);
 
   static const String id = 'RegisterPage';
 
@@ -79,7 +79,11 @@ class _RegisterPageState extends State<RegisterPage> {
                       try {
                         await register();
                         showSnackBar(context, 'Registration succeeded',);
-                        Navigator.pushReplacementNamed(context, ChatPage.id,);
+                        Navigator.pushReplacementNamed(
+                          context,
+                          ChatPage.id,
+                          arguments: email,
+                        );
                       } on FirebaseAuthException catch (error) {
                         if(error.code == 'weak-password') {
                           showSnackBar(context, 'The password provided is too weak.');
