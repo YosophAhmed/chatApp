@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   String? email;
   String? password;
   bool isLoading = false;
-  bool isPressed = false;
+  bool isPressed = true;
   GlobalKey<FormState> formKey = GlobalKey();
 
   Future<void> login() async {
