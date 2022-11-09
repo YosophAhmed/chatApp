@@ -9,15 +9,17 @@ import '../components/custom_textfield.dart';
 
 class ChatPage extends StatelessWidget {
   static const String id = 'ChatPage';
-  TextEditingController controller = TextEditingController();
+  final controller = TextEditingController();
+  final scrollController = ScrollController();
+  String? messageSubmit;
 
   CollectionReference messages =
       FirebaseFirestore.instance.collection(messagesCollection);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<QuerySnapshot>(
-      future: messages.get(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: messages.orderBy(kmessageTime, descending: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Message> messagesList = [];
@@ -39,6 +41,8 @@ class ChatPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.builder(
+                    reverse: true,
+                    controller: scrollController,
                     itemBuilder: (context, index) => ChatItem(
                       message: messagesList[index],
                     ),
@@ -49,14 +53,22 @@ class ChatPage extends StatelessWidget {
                   padding: EdgeInsets.all(8.sp),
                   child: CustomTextFormField(
                     controller: controller,
+                    keyboardType: TextInputType.text,
+                    prefix: Icons.attach_file_rounded,
                     suffix: Icons.send,
-                    sendMessage: () {},
                     hintText: 'Send message',
                     onSubmitted: (message) {
+                      if(message.isNotEmpty) {
+                        messageSubmit = message;
+                      }
+                    },
+                    suffixFunction: () {
                       messages.add({
-                        'message': message,
+                        kMessage: messageSubmit,
+                        kmessageTime: DateTime.now(),
                       });
                       controller.clear();
+                      scrollController.jumpTo(0);
                     },
                   ),
                 ),
@@ -83,7 +95,7 @@ class ChatPage extends StatelessWidget {
                   child: CustomTextFormField(
                     controller: controller,
                     suffix: Icons.send,
-                    sendMessage: () {},
+                    suffixFunction: () {},
                     hintText: 'Send message',
                     onSubmitted: (message) {
                       messages.add({

@@ -1,23 +1,30 @@
 import 'package:chat/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class CustomTextFormField extends StatelessWidget {
 
   final String? hintText;
   final IconData? suffix;
+  final IconData? prefix;
+  final bool? obscure;
   final TextEditingController? controller;
+  final TextInputType? keyboardType;
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
-  final Function()? sendMessage;
+  final void Function()? suffixFunction;
 
   const CustomTextFormField({
     Key? key,
     this.hintText,
+    this.obscure = false,
     this.controller,
+    this.keyboardType,
     this.onChanged,
     this.onSubmitted,
     this.suffix,
-    this.sendMessage,
+    this.prefix,
+    this.suffixFunction,
   }) : super(key: key);
 
   @override
@@ -32,27 +39,36 @@ class CustomTextFormField extends StatelessWidget {
       },
       decoration: InputDecoration(
         hintText: hintText,
-        border: const OutlineInputBorder(
-          borderSide: BorderSide(
+        border: OutlineInputBorder(
+          borderSide: const BorderSide(
             color: primaryColor4,
           ),
+          borderRadius: BorderRadius.circular(16.sp),
         ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
             color: primaryColor4,
           ),
+          borderRadius: BorderRadius.circular(16.sp),
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
             color: primaryColor4,
           ),
+          borderRadius: BorderRadius.circular(16.sp),
+        ),
+        prefixIcon: Icon(
+          prefix,
+          color: primaryColor4,
         ),
         suffixIcon: IconButton(
-          onPressed: sendMessage,
+          onPressed: suffixFunction,
           icon: Icon(suffix),
           color: primaryColor4,
         ),
       ),
+      keyboardType: keyboardType,
+      obscureText: obscure!,
       onChanged: onChanged,
       onFieldSubmitted: onSubmitted,
     );

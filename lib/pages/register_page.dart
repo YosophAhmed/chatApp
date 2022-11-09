@@ -52,6 +52,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   onChanged: (data) {
                     email = data;
                   },
+                  prefix: Icons.email_rounded,
+                  keyboardType: TextInputType.emailAddress,
                 ),
                 SizedBox(
                   height: 2.h,
@@ -61,6 +63,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   onChanged: (data) {
                     password = data;
                   },
+                  prefix: Icons.lock,
+                  keyboardType: TextInputType.visiblePassword,
                 ),
                 SizedBox(
                   height: 2.h,

@@ -13,8 +13,6 @@ import 'chat_page.dart';
 
 class LoginPage extends StatefulWidget {
   static const String id = 'LoginPage';
-
-
   LoginPage({Key? key}) : super(key: key);
 
   @override
@@ -25,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   String? email;
   String? password;
   bool isLoading = false;
+  bool isPressed = false;
   GlobalKey<FormState> formKey = GlobalKey();
 
   Future<void> login() async {
@@ -53,6 +52,8 @@ class _LoginPageState extends State<LoginPage> {
                   onChanged: (data) {
                       email = data;
                   },
+                  prefix: Icons.email_rounded,
+                  keyboardType: TextInputType.emailAddress,
                 ),
                 SizedBox(
                   height: 2.h,
@@ -62,6 +63,15 @@ class _LoginPageState extends State<LoginPage> {
                   onChanged: (data) {
                     password = data;
                   },
+                  prefix: Icons.lock,
+                  suffix: isPressed? Icons.visibility_off : Icons.visibility,
+                  suffixFunction: (){
+                        setState(() {
+                          isPressed = !isPressed;
+                        });
+                  },
+                  obscure: isPressed? true : false,
+                  keyboardType: TextInputType.visiblePassword,
                 ),
                 SizedBox(
                   height: 2.h,
