@@ -80,7 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         await register();
                         if (!mounted) return;
                         showSnackBar(context, 'Registration succeeded',);
-                        Navigator.pushReplacementNamed(
+                        Navigator.popAndPushNamed(
                           context,
                           ChatPage.id,
                           arguments: email,

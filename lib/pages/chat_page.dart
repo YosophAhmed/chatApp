@@ -103,7 +103,9 @@ class ChatPage extends StatelessWidget {
             ),
             body: Column(
               children: [
-                //Expanded(child: Text('')),
+                Expanded(
+                    child: ListView(),
+                ),
                 Padding(
                   padding: EdgeInsets.all(8.sp),
                   child: CustomTextFormField(

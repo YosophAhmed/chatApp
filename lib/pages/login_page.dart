@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                         await login();
                         if (!mounted) return;
                         showSnackBar(context, 'Login succeeded',);
-                        Navigator.pushReplacementNamed(
+                        Navigator.popAndPushNamed(
                           context,
                           ChatPage.id,
                           arguments: email,
