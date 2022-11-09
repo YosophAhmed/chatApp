@@ -85,6 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                       });
                       try {
                         await login();
+                        if (!mounted) return;
                         showSnackBar(context, 'Login succeeded',);
                         Navigator.pushReplacementNamed(
                           context,

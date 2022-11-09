@@ -78,6 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       });
                       try {
                         await register();
+                        if (!mounted) return;
                         showSnackBar(context, 'Registration succeeded',);
                         Navigator.pushReplacementNamed(
                           context,
