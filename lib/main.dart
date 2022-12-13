@@ -1,7 +1,12 @@
+import 'package:chat/pages/auth_bloc/auth_bloc.dart';
 import 'package:chat/pages/chat_page.dart';
+import 'package:chat/pages/cubits/auth_cubit/auth_cubit.dart';
+import 'package:chat/pages/cubits/chat_cubit/chat_cubit.dart';
 import 'package:chat/pages/login_page.dart';
 import 'package:chat/pages/register_page.dart';
+import 'package:chat/simple_bloc_observer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -11,7 +16,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ChatApp());
+  BlocOverrides.runZoned(
+    () => runApp(const ChatApp()),
+    blocObserver: SimpleBlocObserver(),
+  );
 }
 
 class ChatApp extends StatelessWidget {
@@ -19,23 +27,36 @@ class ChatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Sizer(builder: (
-      context,
-      orientation,
-      deviceType,
-    ) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.cyan,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>(
+          create: (context) => AuthCubit(),
         ),
-        initialRoute: LoginPage.id,
-        routes: {
-          LoginPage.id: (context) => const LoginPage(),
-          RegisterPage.id : (context) => const RegisterPage(),
-          ChatPage.id : (context) => ChatPage(),
-        },
-      );
-    });
+        BlocProvider<ChatCubit>(
+          create: (context) => ChatCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AuthBloc(),
+        ),
+      ],
+      child: Sizer(builder: (
+        context,
+        orientation,
+        deviceType,
+      ) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.cyan,
+          ),
+          initialRoute: LoginPage.id,
+          routes: {
+            LoginPage.id: (context) => LoginPage(),
+            RegisterPage.id: (context) => RegisterPage(),
+            ChatPage.id: (context) => ChatPage(),
+          },
+        );
+      }),
+    );
   }
 }
